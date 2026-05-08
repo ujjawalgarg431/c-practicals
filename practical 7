@@ -1,0 +1,50 @@
+(i) GCD of Two Numbers Using Recursion
+
+#include <iostream>
+using namespace std;
+
+// Function to find GCD using recursion
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}
+
+int main()
+{
+    int num1, num2;
+
+    cout << "Enter two numbers: ";
+    cin >> num1 >> num2;
+
+    cout << "GCD = " << gcd(num1, num2);
+
+    return 0;
+}
+
+(ii) GCD of Two Numbers Without Recursion
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a, b, temp;
+
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+
+    // Loop until remainder becomes 0
+    while (b != 0)
+    {
+        temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    cout << "GCD = " << a;
+
+    return 0;
+}
