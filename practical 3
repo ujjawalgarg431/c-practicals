@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main(int count, char* words[]) {
+    int freq[26] = {0};
+
+    for (int i = 1; i < count; i++) {
+        int j = 0;
+        while (words[i][j] != '\0') {
+            char ch = words[i][j];
+
+            if (ch >= 'A' && ch <= 'Z') {
+                ch = ch + 32;
+            }
+
+            if (ch >= 'a' && ch <= 'z') {
+                freq[ch - 'a']++;
+            }
+
+            j++;
+        }
+    }
+
+    cout << "Alphabet  Count\n";
+
+    for (int i = 0; i < 26; i++) {
+        cout << char('a' + i) << "          " << freq[i] << endl;
+    }
+
+    return 0;
+}
