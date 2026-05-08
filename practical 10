@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+
+// Base Class
+class Person
+{
+protected:
+    string name;
+
+public:
+    void getPerson()
+    {
+        cout << "Enter Name: ";
+        cin >> name;
+    }
+
+    // Virtual function for runtime polymorphism
+    virtual void display()
+    {
+        cout << "Name: " << name << endl;
+    }
+};
+
+// Derived Class Student
+class Student : public Person
+{
+    string course;
+    int marks;
+    int year;
+
+public:
+    void getStudent()
+    {
+        getPerson();
+
+        cout << "Enter Course: ";
+        cin >> course;
+
+        cout << "Enter Marks: ";
+        cin >> marks;
+
+        cout << "Enter Year: ";
+        cin >> year;
+    }
+
+    void display()
+    {
+        cout << "\n--- Student Details ---\n";
+        cout << "Name: " << name << endl;
+        cout << "Course: " << course << endl;
+        cout << "Marks: " << marks << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+// Derived Class Employee
+class Employee : public Person
+{
+    string department;
+    float salary;
+
+public:
+    void getEmployee()
+    {
+        getPerson();
+
+        cout << "Enter Department: ";
+        cin >> department;
+
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void display()
+    {
+        cout << "\n--- Employee Details ---\n";
+        cout << "Name: " << name << endl;
+        cout << "Department: " << department << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+int main()
+{
+    Student s;
+    Employee e;
+
+    Person *p;   // Base class pointer
+
+    // Student Details
+    cout << "Enter Student Details\n";
+    s.getStudent();
+
+    // Employee Details
+    cout << "\nEnter Employee Details\n";
+    e.getEmployee();
+
+    // Runtime Polymorphism
+    p = &s;
+    p->display();
+
+    p = &e;
+    p->display();
+
+    return 0;
+}
