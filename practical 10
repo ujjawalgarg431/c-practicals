@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Triangle
+{
+    float a, b, c;
+
+public:
+
+    // Function to input sides
+    void input()
+    {
+        cout << "Enter three sides of triangle: ";
+        cin >> a >> b >> c;
+
+        // Exception Handling
+        if(a <= 0 || b <= 0 || c <= 0)
+        {
+            throw "Sides must be greater than 0";
+        }
+
+        if((a + b <= c) || (a + c <= b) || (b + c <= a))
+        {
+            throw "Triangle is not valid";
+        }
+    }
+
+    // Overloaded function for right angled triangle
+    float area(float base, float height)
+    {
+        return 0.5 * base * height;
+    }
+
+    // Overloaded function using Heron's Formula
+    float area()
+    {
+        float s, ar;
+
+        s = (a + b + c) / 2;
+
+        ar = sqrt(s * (s - a) * (s - b) * (s - c));
+
+        return ar;
+    }
+};
+
+int main()
+{
+    Triangle t;
+
+    float base, height;
+
+    try
+    {
+        t.input();
+
+        // Area using Heron's Formula
+        cout << "\nArea using Heron's Formula = ";
+        cout << t.area();
+
+        // Area of right angled triangle
+        cout << "\n\nEnter base and height of right angled triangle: ";
+        cin >> base >> height;
+
+        cout << "Area of Right Angled Triangle = ";
+        cout << t.area(base, height);
+    }
+
+    catch(const char* msg)
+    {
+        cout << "Exception: " << msg;
+    }
+
+    return 0;
+}
