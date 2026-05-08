@@ -1,0 +1,125 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    char str1[100], str2[100], result[200];
+    int choice;
+
+    cout << "Enter first string: ";
+    cin >> str1;
+    cout << "Enter second string: ";
+    cin >> str2;
+
+    cout << "\nMenu:\n";
+    cout << "1. Show address of each character\n";
+    cout << "2. Concatenate strings\n";
+    cout << "3. Compare strings\n";
+    cout << "4. Length of string\n";
+    cout << "5. Convert to uppercase\n";
+    cout << "6. Reverse string\n";
+    cout << "7. Insert string\n";
+
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    switch (choice) {
+
+        case 1: {
+            for (int i = 0; str1[i] != '\0'; i++) {
+                cout << str1[i] << " -> " << (int*)&str1[i] << endl;
+            }
+            break;
+        }
+
+        case 2: {
+            int i = 0, j = 0;
+            while (str1[i] != '\0') {
+                result[i] = str1[i];
+                i++;
+            }
+            while (str2[j] != '\0') {
+                result[i] = str2[j];
+                i++; j++;
+            }
+            result[i] = '\0';
+            cout << "Concatenated string: " << result;
+            break;
+        }
+
+        case 3: {
+            int i = 0, flag = 0;
+            while (str1[i] != '\0' && str2[i] != '\0') {
+                if (str1[i] != str2[i]) {
+                    flag = 1;
+                    break;
+                }
+                i++;
+            }
+            if (str1[i] != str2[i]) flag = 1;
+
+            if (flag == 0)
+                cout << "Strings are equal";
+            else
+                cout << "Strings are not equal";
+            break;
+        }
+
+        case 4: {
+            char *ptr = str1;
+            int length = 0;
+            while (*ptr != '\0') {
+                length++;
+                ptr++;
+            }
+            cout << "Length = " << length;
+            break;
+        }
+
+        case 5: {
+            for (int i = 0; str1[i] != '\0'; i++) {
+                if (str1[i] >= 'a' && str1[i] <= 'z') {
+                    str1[i] = str1[i] - 32;
+                }
+            }
+            cout << "Uppercase string: " << str1;
+            break;
+        }
+
+        case 6: {
+            int len = 0;
+            while (str1[len] != '\0') len++;
+
+            for (int i = len - 1; i >= 0; i--) {
+                cout << str1[i];
+            }
+            break;
+        }
+
+        case 7: {
+            int pos, i = 0, j = 0, k = 0;
+            cout << "Enter position: ";
+            cin >> pos;
+
+            while (i < pos) {
+                result[k++] = str1[i++];
+            }
+
+            while (str2[j] != '\0') {
+                result[k++] = str2[j++];
+            }
+
+            while (str1[i] != '\0') {
+                result[k++] = str1[i++];
+            }
+
+            result[k] = '\0';
+            cout << "Result string: " << result;
+            break;
+        }
+
+        default:
+            cout << "Invalid choice";
+    }
+
+    return 0;
+}
