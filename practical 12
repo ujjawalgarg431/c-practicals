@@ -1,0 +1,39 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    char ch;
+
+    // Open source file
+    ifstream fin("input.txt");
+
+    // Open destination file
+    ofstream fout("output.txt");
+
+    // Check if file opened successfully
+    if(!fin)
+    {
+        cout << "Input file not found";
+        return 0;
+    }
+
+    // Read character one by one
+    while(fin.get(ch))
+    {
+        // Copy only non-whitespace characters
+        if(ch != ' ' && ch != '\n' && ch != '\t')
+        {
+            fout << ch;
+        }
+    }
+
+    cout << "File copied successfully without whitespaces";
+
+    // Close files
+    fin.close();
+    fout.close();
+
+    return 0;
+}
