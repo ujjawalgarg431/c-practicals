@@ -1,0 +1,81 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class Student
+{
+    int rollNo;
+    char name[50];
+    char studentClass[20];
+    int year;
+    float totalMarks;
+
+public:
+
+    // Function to input student details
+    void input()
+    {
+        cout << "Enter Roll No: ";
+        cin >> rollNo;
+
+        cout << "Enter Name: ";
+        cin >> name;
+
+        cout << "Enter Class: ";
+        cin >> studentClass;
+
+        cout << "Enter Year: ";
+        cin >> year;
+
+        cout << "Enter Total Marks: ";
+        cin >> totalMarks;
+    }
+
+    // Function to display student details
+    void display()
+    {
+        cout << "\nRoll No: " << rollNo;
+        cout << "\nName: " << name;
+        cout << "\nClass: " << studentClass;
+        cout << "\nYear: " << year;
+        cout << "\nTotal Marks: " << totalMarks;
+        cout << "\n----------------------\n";
+    }
+};
+
+int main()
+{
+    Student s;
+
+    // Create file
+    ofstream fout("student.txt");
+
+    // Store 5 student records
+    cout << "Enter Details of 5 Students\n";
+
+    for(int i = 0; i < 5; i++)
+    {
+        cout << "\nEnter Details of Student " << i + 1 << endl;
+
+        s.input();
+
+        // Write data to file
+        fout << s;
+    }
+
+    fout.close();
+
+    // Read data from file
+    ifstream fin("student.txt");
+
+    cout << "\n\nStudent Records from File\n";
+
+    while(fin.read((char*)&s, sizeof(s)))
+    {
+        s.display();
+    }
+
+    fin.close();
+
+    return 0;
+}
