@@ -1,0 +1,184 @@
+#include <iostream>
+using namespace std;
+
+class Matrix
+{
+    int a[10][10];
+    int row, col;
+
+public:
+
+    // Input Matrix
+    void input()
+    {
+        cout << "Enter number of rows: ";
+        cin >> row;
+
+        cout << "Enter number of columns: ";
+        cin >> col;
+
+        cout << "Enter matrix elements:\n";
+
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                cin >> a[i][j];
+            }
+        }
+    }
+
+    // Display Matrix
+    void display()
+    {
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                cout << a[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    // Sum of Matrix
+    Matrix sum(Matrix m)
+    {
+        if(row != m.row || col != m.col)
+        {
+            throw "Addition not possible";
+        }
+
+        Matrix temp;
+
+        temp.row = row;
+        temp.col = col;
+
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                temp.a[i][j] = a[i][j] + m.a[i][j];
+            }
+        }
+
+        return temp;
+    }
+
+    // Product of Matrix
+    Matrix product(Matrix m)
+    {
+        if(col != m.row)
+        {
+            throw "Multiplication not possible";
+        }
+
+        Matrix temp;
+
+        temp.row = row;
+        temp.col = m.col;
+
+        for(int i = 0; i < temp.row; i++)
+        {
+            for(int j = 0; j < temp.col; j++)
+            {
+                temp.a[i][j] = 0;
+
+                for(int k = 0; k < col; k++)
+                {
+                    temp.a[i][j] = temp.a[i][j] + a[i][k] * m.a[k][j];
+                }
+            }
+        }
+
+        return temp;
+    }
+
+    // Transpose of Matrix
+    Matrix transpose()
+    {
+        Matrix temp;
+
+        temp.row = col;
+        temp.col = row;
+
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                temp.a[j][i] = a[i][j];
+            }
+        }
+
+        return temp;
+    }
+};
+
+int main()
+{
+    Matrix m1, m2, result;
+    int choice;
+
+    cout << "Enter First Matrix\n";
+    m1.input();
+
+    cout << "\nEnter Second Matrix\n";
+    m2.input();
+
+    do
+    {
+        cout << "\n------ MENU ------\n";
+        cout << "1. Sum\n";
+        cout << "2. Product\n";
+        cout << "3. Transpose of First Matrix\n";
+        cout << "4. Exit\n";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        try
+        {
+            if(choice == 1)
+            {
+                result = m1.sum(m2);
+
+                cout << "\nSum Matrix:\n";
+                result.display();
+            }
+
+            else if(choice == 2)
+            {
+                result = m1.product(m2);
+
+                cout << "\nProduct Matrix:\n";
+                result.display();
+            }
+
+            else if(choice == 3)
+            {
+                result = m1.transpose();
+
+                cout << "\nTranspose Matrix:\n";
+                result.display();
+            }
+
+            else if(choice == 4)
+            {
+                cout << "Program End";
+            }
+
+            else
+            {
+                cout << "Wrong Choice";
+            }
+        }
+
+        catch(const char* msg)
+        {
+            cout << "Exception: " << msg << endl;
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
